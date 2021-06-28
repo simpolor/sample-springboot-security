@@ -20,9 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // URL에 따른 권한 체크
                 .authorizeRequests()
                     .antMatchers("/", "/index", "/welcome").permitAll()
-                    .antMatchers("/error", "/error/**").permitAll()
+                    .antMatchers("/error", "/error/**", "/test/**").permitAll()
                     .antMatchers("/student/list").permitAll()
-                    .antMatchers("/student/view").authenticated()
+                    .antMatchers("/student/detail").authenticated()
                     .antMatchers("/student/register", "/student/modify/**", "/student/delete/**").hasRole("ADMIN")
                     // .antMatchers("/admin/login").permitAll()
                     // .antMatchers("/admin/security").authenticated()
@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 에러 페이지 설정
                 .and()
                     .exceptionHandling()
-                    .accessDeniedPage("/error/403")
+                    .accessDeniedPage("/access-denied-page")
 
                 // 비밀번호 자동저장 설정
                 // .and()

@@ -5,11 +5,11 @@
 <head>
     <title>Student Modify</title>
     <script>
-        function f_submit() {
+        function fnSubmit() {
             var form = document.getElementById("studentForm");
             form.submit();
         }
-        function f_list() {
+        function fnList() {
             location.href = "/student/list";
         }
     </script>
@@ -55,8 +55,8 @@
 
     <hr />
 
-    <button onclick="f_submit()">수정</button>
-    <button onclick="f_list()">목록</button>
+    <button onclick="fnSubmit()">수정</button>
+    <button onclick="fnList()">목록</button>
 
 </body>
 </html>

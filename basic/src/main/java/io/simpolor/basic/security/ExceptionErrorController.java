@@ -1,4 +1,4 @@
-package io.simpolor.basic.controller;
+package io.simpolor.basic.security;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -22,17 +22,15 @@ public class ExceptionErrorController implements ErrorController {
     @GetMapping(value = "/error")
     public ModelAndView handleError(ModelAndView mav, HttpServletRequest request) {
 
-        System.out.println("여길 안타는건가?!!");
-
         // 에러 코드를 획득한다.
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
         // 에러 코드에 대한 상태 정보
-        HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
 
-        if(Objects.nonNull(httpStatus)){
+        if(Objects.nonNull(status)){
 
-            int statusCode = Integer.valueOf(status.toString());
+            HttpStatus httpStatus = HttpStatus.valueOf(Integer.valueOf(status.toString()));
+            int statusCode = Integer.valueOf(httpStatus.value());
 
             if(HttpStatus.NOT_FOUND.value() == statusCode){
 

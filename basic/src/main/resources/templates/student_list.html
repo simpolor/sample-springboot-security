@@ -5,7 +5,7 @@
 <head>
     <title>Student List</title>
     <script>
-        function f_register() {
+        function fnRegisterForm() {
             location.href = "/student/register";
         }
     </script>
@@ -81,7 +81,7 @@
         <tbody>
             <tr th:each="studentDto : ${studentDtos}">
                 <td th:text="${studentDto.seq}"></td>
-                <td><a th:href="@{'/student/view/'+${studentDto.seq}}" th:text="${studentDto.name}"></a></td>
+                <td><a th:href="@{'/student/detail/'+${studentDto.seq}}" th:text="${studentDto.name}"></a></td>
                 <td th:text="${studentDto.grade}"></td>
                 <td th:text="${studentDto.age}"></td>
             </tr>
@@ -90,7 +90,7 @@
 
     <hr />
 
-    <button onclick="f_register()">등록</button>
+    <button onclick="fnRegisterForm()">등록</button>
 
 </body>
 </html>
