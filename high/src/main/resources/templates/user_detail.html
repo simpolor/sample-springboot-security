@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>User Detail</title>
+    <script>
+        function fnBack() {
+            location.href = "/student/list";
+        }
+    </script>
+    <style>
+        table {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Detail</h1>
+    <hr />
+
+    <table>
+        <tbody>
+            <tr>
+                <th>회원번호</th>
+                <td th:text="${userDto.seq}"></td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td th:text="${userDto.email}"></td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td th:text="${userDto.password}"></td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td th:text="${userDto.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+
+    <button onclick="fnBack()">목록</button>
+</body>
+</html>
