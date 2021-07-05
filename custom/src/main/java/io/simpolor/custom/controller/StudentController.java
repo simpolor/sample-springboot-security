@@ -60,6 +60,16 @@ public class StudentController {
 		return mav;
 	}
 
+	@GetMapping(value="/detail2/{seq}")
+	public ModelAndView detail2(ModelAndView mav, @PathVariable long seq) {
+
+		Student student = studentService.get(seq);
+
+		mav.addObject("studentDto", StudentDto.of(student));
+		mav.setViewName("student_detail");
+		return mav;
+	}
+
 	@GetMapping(value="/register")
 	public ModelAndView studentRegisterForm(ModelAndView mav) {
 

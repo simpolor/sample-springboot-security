@@ -40,8 +40,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/", "/index", "/welcome").permitAll()
-                    .antMatchers("/error", "/error/**", "/h2-console/**").permitAll()
-                    .antMatchers("/user/**", "/student/**").permitAll()
+                    //.antMatchers("/error", "/error/**", "/h2-console/**").permitAll()
+                    //.antMatchers("/user/join", "/user/login").permitAll()
                     .anyRequest().authenticated()
 
                 // 로그인 설정

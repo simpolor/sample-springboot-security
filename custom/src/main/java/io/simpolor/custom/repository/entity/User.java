@@ -27,8 +27,12 @@ public class User implements UserDetails {
 	private String password;
 	private String name;
 
-	@Convert(converter = StringListConverter.class)
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(
+			name="user_role",
+			joinColumns = @JoinColumn(name= "seq", referencedColumnName = "seq"))
 	private List<String> authorities;
+
 
 	@Override
 	public String getUsername(){
