@@ -3,7 +3,12 @@ package io.simpolor.high.config;
 import io.simpolor.high.security.PasswordEncoding;
 import io.simpolor.high.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/error", "/error/**", "/h2-console/**").permitAll()
                     .antMatchers("/user/**").permitAll()
                     .antMatchers("/student/list").permitAll()
-                    .antMatchers("/student/detail").authenticated()
+                    .antMatchers("/student/detail/**").hasAuthority("USER")
                     .antMatchers("/student/register", "/student/modify/**", "/student/delete/**").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
 
@@ -74,5 +79,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoding);
+    }
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("ADMIN > USER");
+
+        return roleHierarchy;
+    }
+
+    @Bean
+    public AccessDecisionVoter<? extends  Object> roleVoter(){
+
+        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
+
+        return roleHierarchyVoter;
     }
 }

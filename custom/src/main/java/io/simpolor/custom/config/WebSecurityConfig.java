@@ -109,23 +109,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
-    /*@Bean
-    public RoleHierarchy roleHierarchy() {
-
-        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
-
-        return roleHierarchy;
-    }
-
-    @Bean
-    public AccessDecisionVoter<? extends  Object> roleVoter(){
-
-        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
-
-        return roleHierarchyVoter;
-    }*/
-
     /* @Bean
     public RoleHierarchy roleHierarchy(){
 
