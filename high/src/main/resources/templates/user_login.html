@@ -18,6 +18,29 @@
         function fnList() {
             location.href = "/student/list";
         }
+
+		/*function fnLogin(){
+			if ($("#remember-me").is(":checked")) {
+				//체크 되어있다면, 해당 정보를 1년간 유효하도록 쿠키 저장
+				$.cookie("member_id", $("#member_id").val(), {
+					"expires" : 365
+				});
+				$.cookie("member_pw", $("#member_pw").val(), {
+					"expires" : 365
+				});
+			} else {
+				//체크가 해제되었다면 쿠키 삭제.
+				$.removeCookie("member_id");
+				$.removeCookie("member_pw");
+			}
+
+			var form = document.getElementById("login_form");
+			if(form.member_id.value == null || form.member_pw.value == null){
+				alert('정보를 정확히 입력해주세요');
+				return false;
+			}
+			form.submit();
+		}*/
 	</script>
 </head>
 <body>
