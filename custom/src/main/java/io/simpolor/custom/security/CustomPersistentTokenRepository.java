@@ -7,6 +7,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -26,12 +27,16 @@ public class CustomPersistentTokenRepository implements PersistentTokenRepositor
 
 	@Override
 	public void updateToken(String series, String tokenValue, Date lastUsed) {
+
 		tokenService.updateToken(series, tokenValue, lastUsed);
 	}
 
 	@Override
 	public void removeUserTokens(String username) {
-		tokenService.removeUserTokens(username);
+
+		if(Objects.nonNull(tokenService.selectToken(username))){
+			tokenService.removeUserTokens(username);
+		}
 	}
 
 }

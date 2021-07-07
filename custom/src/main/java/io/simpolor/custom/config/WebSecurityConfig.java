@@ -4,13 +4,27 @@ import io.simpolor.custom.security.*;
 import io.simpolor.custom.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.expression.SecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyUtils;
+import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
@@ -43,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //.antMatchers("/error", "/error/**", "/h2-console/**").permitAll()
                     //.antMatchers("/user/join", "/user/login").permitAll()
                     .anyRequest().authenticated()
+                    //.expressionHandler(expressionHandler())
 
                 // 로그인 설정
                 .and()
@@ -93,4 +108,45 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // 인증 처리
         auth.authenticationProvider(customAuthenticationProvider);
     }
+
+    /*@Bean
+    public RoleHierarchy roleHierarchy() {
+
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
+
+        return roleHierarchy;
+    }
+
+    @Bean
+    public AccessDecisionVoter<? extends  Object> roleVoter(){
+
+        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
+
+        return roleHierarchyVoter;
+    }*/
+
+    /* @Bean
+    public RoleHierarchy roleHierarchy(){
+
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+
+        Map<String, List<String>> roleHierarchyMap = new HashMap<>();
+        roleHierarchyMap.put("ADMIN", Arrays.asList("USER"));
+        roleHierarchyMap.put("MASTER", Arrays.asList("USER", "ADMIN"));
+
+        String roles = RoleHierarchyUtils.roleHierarchyFromMap(roleHierarchyMap);
+        roleHierarchy.setHierarchy(roles);
+
+        return roleHierarchy;
+    }
+
+    @Bean
+    public SecurityExpressionHandler<FilterInvocation> expressionHandler() {
+        DefaultWebSecurityExpressionHandler webSecurityExpressionHandler = new DefaultWebSecurityExpressionHandler();
+        webSecurityExpressionHandler.setRoleHierarchy(roleHierarchy());
+
+        return webSecurityExpressionHandler;
+    }*/
+
 }

@@ -14,7 +14,7 @@ INSERT INTO access(access_seq, access_url, access_roles)
     VALUES (1, '/student/register', 'ADMIN');
 
 INSERT INTO access(access_seq, access_url, access_roles)
-    VALUES (2, '/student/detail/**', 'USER,ADMIN');
+    VALUES (2, '/student/detail/**', 'USER');
 
 INSERT INTO access(access_seq, access_url, access_roles)
     VALUES (3, '/student/register', 'ADMIN');
