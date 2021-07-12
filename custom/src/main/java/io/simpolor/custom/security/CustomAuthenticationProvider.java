@@ -21,7 +21,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider{
 
 	private final PasswordEncoding passwordEncoding;
 	private final UserService userService;
-	
+
+	/**
+	 * 인증
+	 * @param authentication
+	 * @return
+	 * @throws AuthenticationException
+	 */
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 

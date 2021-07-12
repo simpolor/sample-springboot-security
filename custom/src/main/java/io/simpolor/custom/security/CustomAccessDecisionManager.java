@@ -18,7 +18,12 @@ import java.util.Iterator;
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
 	/***
-	 * 사용자의 권한과 매핑정보를 비교하는 함수
+	 * 인가 : 사용자의 권한과 매핑정보를 비교하는 함수
+	 *
+	 * 인가 단계에서는 여러개의 voter(권한 체계)를 가질 수 있음
+	 * - affirmativeBased : 여러 Voter 중에 한명이라도 허용하면 허용 ( 기본 전략 )
+	 * - ConsensusBased : 다수결
+	 * - UnanimousBased : 만장 일치
 	 */
 	@Override
 	public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
@@ -51,6 +56,9 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
 				}
 			}
 		}
+
+		System.out.println("Access Denied!!");
+
 		throw new AccessDeniedException("Access Denied!!!");
 	}
 

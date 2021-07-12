@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     //.antMatchers("/error", "/error/**", "/h2-console/**").permitAll()
                     //.antMatchers("/user/join", "/user/login").permitAll()
                     .anyRequest().authenticated()
-                    //.expressionHandler(expressionHandler())
+                    //.expressionHandler(expressionHandler()) // 웹 시큐리티에서 사용하는 기본 구현채 "ROLE_X"가 매치하는지 확인
 
                 // 로그인 설정
                 .and()
@@ -109,6 +109,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
+    // RoleHierarchyVoter : 계층형 ROLE 지원, ADMIN > MANAGER > USER
     /* @Bean
     public RoleHierarchy roleHierarchy(){
 

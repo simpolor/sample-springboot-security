@@ -5,15 +5,22 @@ import io.simpolor.high.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -45,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/student/detail/**").hasAuthority("USER")
                     .antMatchers("/student/register", "/student/modify/**", "/student/delete/**").hasAuthority("ADMIN")
                     .anyRequest().authenticated()
+                    .accessDecisionManager(accessDecisionManager())
 
                 // 로그인 설정
                 .and()
@@ -81,7 +89,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoding);
     }
 
-    @Bean
+    public AccessDecisionManager accessDecisionManager() {
+
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("ADMIN > USER");
+
+        DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
+        handler.setRoleHierarchy( roleHierarchy );
+
+        WebExpressionVoter webExpressVoter = new WebExpressionVoter();
+        webExpressVoter.setExpressionHandler( handler );
+
+        List<AccessDecisionVoter<? extends Object>> voters = Arrays.asList( webExpressVoter );
+        return new AffirmativeBased( voters );
+    }
+
+    /*@Bean
     public RoleHierarchy roleHierarchy() {
 
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -96,5 +119,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
 
         return roleHierarchyVoter;
-    }
+    }*/
+
 }
