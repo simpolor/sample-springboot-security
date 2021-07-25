@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * 예외 처리를 위한 컨트롤러
+ */
 @Controller
 public class ExceptionErrorController implements ErrorController {
 

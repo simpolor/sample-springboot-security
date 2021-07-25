@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * 자동 로그일을 처리하기 위한 저장소 ( DB )
+ */
 @Component
 @RequiredArgsConstructor
 public class CustomPersistentTokenRepository implements PersistentTokenRepository{

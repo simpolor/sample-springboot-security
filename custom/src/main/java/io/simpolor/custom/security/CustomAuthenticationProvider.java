@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+/**
+ * 인증 처리를 다루기 위해 제공
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

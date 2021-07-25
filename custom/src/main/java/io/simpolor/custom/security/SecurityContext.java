@@ -4,6 +4,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * 시큐리티를 좀 더 쉽게 사용하기 위한 유틸
+ */
 public final class SecurityContext {
 
     private static final String ANONYMOUS_USER  = "anonymousUser";

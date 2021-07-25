@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * 자동 로그일을 처리하기 위한 저장소 ( Session )
+ */
 @Slf4j
 public class CustomInMemoryTokenRepository implements PersistentTokenRepository{
 

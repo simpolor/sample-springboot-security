@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.Map.Entry;
 
+/**
+ * 권한 관리에 따른 처리를 위한 필터
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

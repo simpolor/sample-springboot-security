@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.stereotype.Component;
 
+/**
+ * 접근 권한에 대한 인터셉터
+ */
 @Slf4j
 @Component
 public class CustomSecurityInterceptor extends FilterSecurityInterceptor{

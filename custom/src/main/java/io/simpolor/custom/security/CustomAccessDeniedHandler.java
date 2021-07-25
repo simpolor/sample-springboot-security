@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 접근 권한을 체크하기 위한 핸들러
+ */
 @Slf4j
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {

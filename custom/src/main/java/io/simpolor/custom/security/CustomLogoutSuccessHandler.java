@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 로그아웃을 다루기 위한 핸들러
+ */
 @Slf4j
 @Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler{

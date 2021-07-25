@@ -4,6 +4,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * 비밀번호 인코딩
+ */
 @Component
 public class PasswordEncoding implements PasswordEncoder {
 

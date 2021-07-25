@@ -6,6 +6,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 접근 권한이 없는 경우 해당 처리하기 위한 컨트롤러
+ */
 @Controller
 public class AccessDeniedPageController {
 
