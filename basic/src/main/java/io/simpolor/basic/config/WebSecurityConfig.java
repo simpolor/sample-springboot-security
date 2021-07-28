@@ -15,7 +15,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // Cross site request forgery (사이트간 요청 위조 [사용 권장] )
-                .csrf().disable()
+                /*.csrf().disable()*/
 
                 // URL에 따른 권한 체크
                 .authorizeRequests()

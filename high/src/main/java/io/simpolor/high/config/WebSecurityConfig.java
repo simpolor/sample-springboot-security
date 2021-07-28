@@ -102,6 +102,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         List<AccessDecisionVoter<? extends Object>> voters = Arrays.asList( webExpressVoter );
         return new AffirmativeBased( voters );
+
+        // AffirmativeBased : 모든 보터가 만장일치로 접근해야 승인
+        // ConsensuBased : 다수 표가 결정에 영향 끼침
+        // AffirmativeBased : 보터가 접근을 승인한 경우 바로 승인
     }
 
     /*@Bean

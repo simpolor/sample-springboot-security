@@ -36,6 +36,7 @@
     <hr />
 
     <form id="studentForm" th:action="@{'/student/modify/'+${studentDto.seq}}" th:method="post">
+        <sec:csrfInput />
         <table>
             <tbody>
             <tr>

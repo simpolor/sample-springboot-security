@@ -35,6 +35,7 @@
     <hr />
 
     <form id="studentForm" role="form" th:action="@{'/student/register'}" th:method="post">
+        <sec:csrfInput />
         <table>
             <tbody>
                 <tr>
