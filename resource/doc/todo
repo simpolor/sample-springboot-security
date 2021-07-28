@@ -1,0 +1,30 @@
+// jwt 인증 설정
+https://blog.naver.com/PostView.naver?blogId=varkiry05&logNo=222433667244&categoryNo=107&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView&userTopListOpen=true&userTopListCount=5&userTopListManageOpen=false&userTopListCurrentPage=1
+
+// 리소스 서버 설정
+https://blog.naver.com/PostView.naver?blogId=varkiry05&logNo=221879278816&parentCategoryNo=&categoryNo=107&viewDate=&isShowPopularPosts=false&from=postView
+
+// 인증 서버
+https://blog.naver.com/varkiry05/221865197562
+
+// 스프링 oauth 최종버전
+https://github.com/spring-projects/spring-security-oauth/issues/1327
+
+// 스프링 시큐리티와 OAuth 2.0의 jwt 콜라보
+https://velog.io/@tmdgh0221/Spring-Security-%EC%99%80-OAuth-2.0-%EC%99%80-JWT-%EC%9D%98-%EC%BD%9C%EB%9D%BC%EB%B3%B4
+https://wonyong-jang.github.io/spring/2020/08/27/Spring-Security-oauth2-jwt-2.html
+
+https://ozofweird.tistory.com/entry/Spring-Boot-Spring-Boot-JWT-OAuth2?category=892873
+https://ozofweird.tistory.com/entry/Spring-Boot-Spring-Boot-JWT-OAuth2-2
+
+// 인증서버
+https://daddyprogrammer.org/post/1239/spring-oauth-authorizationserver/
+
+// 리소스 서버
+https://ichi.pro/ko/spring-boot-ui-naejang-oauth2-lisoseu-seobeoleul-sayonghan-jwt-injeung-34487428104975
+
+// 이거부터
+https://gaemi606.tistory.com/entry/Spring-Boot-Spring-Security-OAuth2?category=745027
+
+// 자세한 구현
+https://velog.io/@cjy9306/Spring-boot%EC%9D%98-Resource-Server-%EA%B5%AC%ED%98%84
