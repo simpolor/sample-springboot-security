@@ -81,6 +81,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
          * 읽어볼꺼
          * https://autumnly.tistory.com/64
          * https://lemontia.tistory.com/927
+         * https://velog.io/@agugu95/OAuth%EC%84%9C%EB%B2%84-%EA%B5%AC%ED%98%84%EC%9D%84-%EC%9C%84%ED%95%9C-Spring-Security-%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0
          */
     }
 }
