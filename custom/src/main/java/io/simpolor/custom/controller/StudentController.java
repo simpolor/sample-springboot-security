@@ -6,6 +6,7 @@ import io.simpolor.custom.security.SecurityContext;
 import io.simpolor.custom.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,6 +61,7 @@ public class StudentController {
 		return mav;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping(value="/detail2/{seq}")
 	public ModelAndView detail2(ModelAndView mav, @PathVariable long seq) {
 

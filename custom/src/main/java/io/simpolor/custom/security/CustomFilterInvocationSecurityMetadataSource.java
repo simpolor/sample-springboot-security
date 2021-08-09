@@ -50,6 +50,8 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 			}
 		}
 
+		log.info("-- resources : {}", resources);
+
 		return resources;
 	}
 	
@@ -66,16 +68,16 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 		Map<RequestMatcher, List<ConfigAttribute>> resources = getResources();
 
 		HttpServletRequest request = ( ( FilterInvocation ) object ).getRequest();
-		log.info("> request.getRequestURI : {}", request.getRequestURI());
+		log.info("-- request.getRequestURI : {}", request.getRequestURI());
 
 		for( Entry<RequestMatcher, List<ConfigAttribute>> entry : resources.entrySet() ) {
 			// entry.getKey() : Ant [pattern='/admin/home']
 			if(entry.getKey().matches(request)){
 				result = entry.getValue();
+				System.out.println("entry.getValue() : "+entry.getValue());
 				break;
 			}
 		}
-		log.info("> result : {}", result);
 
 		return result;
 	}

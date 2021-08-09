@@ -1,6 +1,7 @@
 package io.simpolor.custom.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ public class PasswordEncoding implements PasswordEncoder {
     private PasswordEncoder passwordEncoder;
 
     public PasswordEncoding() {
-        this.passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     public PasswordEncoding(PasswordEncoder passwordEncoder) {
