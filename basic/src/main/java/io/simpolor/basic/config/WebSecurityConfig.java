@@ -98,9 +98,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/student/list");
     }
 
+    /**
+     * 회원 정보 설정
+     * - inMemoryAuthentication : 메모리 방식
+     * - withUser : 식별자
+     * - password : 비밀번호
+     * - roles : 권한
+     * @param auth
+     * @throws Exception
+     */
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN", "USER");
-        auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin@gmail.com")
+                .password(passwordEncoder().encode("1234")).roles("ADMIN", "USER");
+        auth.inMemoryAuthentication().withUser("user@gmail.com")
+                .password("{noop}1234").roles("USER");
         // {noop} : NoOpPasswordEncoder
     }
 }
