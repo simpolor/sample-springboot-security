@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>User Login</title>
+	<script>
+        function fnLogin() {
+            var form = document.getElementById("loginForm");
+            if(form.email.value == null || form.password.value == null){
+               alert('정보를 정확히 입력해주세요');
+               return false;
+			}
+            form.submit();
+        }
+
+        function fnList() {
+            location.href = "/student/list";
+        }
+
+		/*function fnLogin(){
+			if ($("#remember-me").is(":checked")) {
+				//체크 되어있다면, 해당 정보를 1년간 유효하도록 쿠키 저장
+				$.cookie("member_id", $("#member_id").val(), {
+					"expires" : 365
+				});
+				$.cookie("member_pw", $("#member_pw").val(), {
+					"expires" : 365
+				});
+			} else {
+				//체크가 해제되었다면 쿠키 삭제.
+				$.removeCookie("member_id");
+				$.removeCookie("member_pw");
+			}
+
+			var form = document.getElementById("login_form");
+			if(form.member_id.value == null || form.member_pw.value == null){
+				alert('정보를 정확히 입력해주세요');
+				return false;
+			}
+			form.submit();
+		}*/
+	</script>
+</head>
+<body>
+	<h1>Member Login</h1>
+	<hr />
+
+	<form id="loginForm" role="form" th:action="@{'/admin/login'}" th:method="post">
+		<table>
+			<tr>
+				<th>아이디</th>
+				<td><input type="text" th:name="email" th:id="email" value="admin@gmail.com" /></td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td><input type="password" th:name="password" th:id="password" value="1234" /></td>
+			</tr>
+		</table>
+	</form>
+
+	<hr />
+
+	<button onclick="fnLogin()">로그인</button>
+	<button onclick="fnList()">목록</button>
+
+</body>
+</html>

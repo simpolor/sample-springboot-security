@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{'/logout'}" th:text="logout"></a>
+    <hr />
+</div>
+
+<div sec:authorize="isAnonymous()">
+    <a th:href="@{'/login'}" th:text="login"></a>
+    <hr />
+</div>
+    <h1>Welcome</h1>
+    <hr />
+    <a href="/admin/student/list">list</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Admin Student List</title>
+    <script>
+        function fnRegisterForm() {
+            location.href = "/admin/student/register";
+        }
+    </script>
+    <style>
+        table {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div sec:authorize="isAuthenticated()">
+        <a th:href="@{'/admin/logout'}" th:text="logout"></a>
+        <hr />
+    </div>
+
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{'/admin/login'}" th:text="login"></a>
+        <hr />
+    </div>
+
+    <h1>Student List</h1>
+    <hr />
+
+    <table>
+        <thead>
+            <tr>
+                <th>seq</th>
+                <th>name</th>
+                <th>grade</th>
+                <th>age</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="studentDto : ${studentDtos}">
+                <td th:text="${studentDto.seq}"></td>
+                <td><a th:href="@{'/admin/student/detail/'+${studentDto.seq}}" th:text="${studentDto.name}"></a></td>
+                <td th:text="${studentDto.grade}"></td>
+                <td th:text="${studentDto.age}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+
+    <button onclick="fnRegisterForm()">등록</button>
+
+</body>
+</html>
