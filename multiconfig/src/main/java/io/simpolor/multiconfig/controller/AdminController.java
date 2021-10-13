@@ -14,8 +14,6 @@ public class AdminController {
         return mav;
     }
 
-
-
     @GetMapping("/admin/login")
     public ModelAndView login(ModelAndView mav) {
 

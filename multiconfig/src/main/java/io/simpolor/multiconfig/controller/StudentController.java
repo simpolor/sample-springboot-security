@@ -6,6 +6,7 @@ import io.simpolor.multiconfig.security.SecurityContext;
 import io.simpolor.multiconfig.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,6 +61,7 @@ public class StudentController {
 		return mav;
 	}
 
+	@Secured({"ROLE_USER"})
 	@GetMapping(value="/register")
 	public ModelAndView studentRegisterForm(ModelAndView mav) {
 
@@ -67,6 +69,7 @@ public class StudentController {
 		return mav;
 	}
 
+	@Secured({"ROLE_USER"})
 	@PostMapping(value = "/register")
 	public ModelAndView register(ModelAndView mav, StudentDto studentDto) {
 
@@ -78,6 +81,7 @@ public class StudentController {
 		return mav;
 	}
 
+	@Secured({"ROLE_USER"})
 	@GetMapping(value="/modify/{seq}")
 	public ModelAndView studentModifyForm(ModelAndView mav, @PathVariable long seq) {
 
@@ -88,6 +92,7 @@ public class StudentController {
 		return mav;
 	}
 
+	@Secured({"ROLE_USER"})
 	@PostMapping(value="/modify/{seq}")
 	public ModelAndView modify(ModelAndView mav, @PathVariable long seq, StudentDto studentDto) {
 
@@ -100,6 +105,7 @@ public class StudentController {
 		return mav;
 	}
 
+	@Secured({"ROLE_USER"})
 	@PostMapping(value="/delete/{seq}")
 	public ModelAndView delete(ModelAndView mav, @PathVariable long seq) {
 
