@@ -1,5 +1,6 @@
 package io.simpolor.basic.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Bean
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
@@ -111,7 +113,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("admin@gmail.com")
                 .password(passwordEncoder().encode("1234")).roles("ADMIN", "USER");
         auth.inMemoryAuthentication().withUser("user@gmail.com")
-                .password("{noop}1234").roles("USER");
-        // {noop} : NoOpPasswordEncoder
+                .password(passwordEncoder().encode("1234")).roles("USER");
     }
 }

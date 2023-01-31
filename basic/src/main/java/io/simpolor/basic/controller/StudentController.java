@@ -21,7 +21,7 @@ public class StudentController {
 
 	private final StudentService studentService;
 
-	@GetMapping(value = "list")
+	@GetMapping("/list")
 	public ModelAndView list(ModelAndView mav) {
 
 		// 시큐리티 테스트를 위한 구분
@@ -37,70 +37,74 @@ public class StudentController {
 			log.info("-- user.isAccountNonExpired() : "+user.isAccountNonExpired());
 		}
 
-		Long totalCount = studentService.getTotalCount();
-		List<StudentDto> studentDtos = StudentDto.of(studentService.getAll());
+		List<Student> students = studentService.getAll();
 
-		mav.addObject("totalCount", totalCount);
-		mav.addObject("studentDtos", studentDtos);
+		mav.addObject("studentList", StudentDto.of(students));
 		mav.setViewName("student_list");
 
 		return mav;
 	}
 
-	@GetMapping(value="/detail/{seq}")
-	public ModelAndView detail(ModelAndView mav, @PathVariable long seq) {
+	@GetMapping("/detail/{studentId}")
+	public ModelAndView detail(ModelAndView mav,
+							   @PathVariable Long studentId) {
 
-		Student student = studentService.get(seq);
+		Student student = studentService.get(studentId);
 
-		mav.addObject("studentDto", StudentDto.of(student));
+		mav.addObject("student", StudentDto.of(student));
 		mav.setViewName("student_detail");
 		return mav;
 	}
 
 	@GetMapping(value="/register")
-	public ModelAndView studentRegisterForm(ModelAndView mav) {
+	public ModelAndView registerForm(ModelAndView mav) {
 
 		mav.setViewName("student_register");
 		return mav;
 	}
 
 	@PostMapping(value = "/register")
-	public ModelAndView register(ModelAndView mav, StudentDto studentDto) {
+	public ModelAndView register(ModelAndView mav,
+								 StudentDto studentDto) {
 
-		log.info("studentDto : {}", studentDto.toString());
+		log.info("studentDto: {}", studentDto.toString());
 
 		Student student = studentService.create(studentDto.toEntity());
 
-		mav.setViewName("redirect:/student/detail/"+student.getSeq());
+		mav.setViewName("redirect:/student/detail/"+student.getStudentId());
 		return mav;
 	}
 
-	@GetMapping(value="/modify/{seq}")
-	public ModelAndView studentModifyForm(ModelAndView mav, @PathVariable long seq) {
+	@GetMapping(value="/modify/{studentId}")
+	public ModelAndView modifyForm(ModelAndView mav,
+								   @PathVariable Long studentId) {
 
-		Student student = studentService.get(seq);
+		Student student = studentService.get(studentId);
 
-		mav.addObject("studentDto", StudentDto.of(student));
+		mav.addObject("student", StudentDto.of(student));
 		mav.setViewName("student_modify");
 		return mav;
 	}
 
-	@PostMapping(value="/modify/{seq}")
-	public ModelAndView modify(ModelAndView mav, @PathVariable long seq, StudentDto studentDto) {
+	@PostMapping(value="/modify/{studentId}")
+	public ModelAndView modify(ModelAndView mav,
+							   @PathVariable Long studentId,
+							   StudentDto studentDto) {
 
 		log.info("studentDto : {}", studentDto.toString());
 
-		studentDto.setSeq(seq);
+		studentDto.setId(studentId);
 		studentService.update(studentDto.toEntity());
 
-		mav.setViewName("redirect:/student/detail/"+seq);
+		mav.setViewName("redirect:/student/detail/"+studentId);
 		return mav;
 	}
 
-	@PostMapping(value="/delete/{seq}")
-	public ModelAndView delete(ModelAndView mav, @PathVariable long seq) {
+	@PostMapping(value="/delete/{studentId}")
+	public ModelAndView delete(ModelAndView mav,
+							   @PathVariable Long studentId) {
 
-		studentService.delete(seq);
+		studentService.delete(studentId);
 
 		mav.setViewName("redirect:/student/list");
 		return mav;

@@ -11,15 +11,15 @@ import java.util.stream.Collectors;
 @Getter
 public class StudentDto {
 
-	private long seq;
+	private Long id;
 	private String name;
-	private int grade;
-	private int age;
+	private Integer grade;
+	private Integer age;
 
 	public Student toEntity(){
 
 		Student student = new Student();
-		student.setSeq(this.seq);
+		student.setStudentId(this.id);
 		student.setName(this.name);
 		student.setGrade(this.grade);
 		student.setAge(this.age);
@@ -30,7 +30,7 @@ public class StudentDto {
 	public static StudentDto of(Student student){
 
 		StudentDto studentDto = new StudentDto();
-		studentDto.setSeq(student.getSeq());
+		studentDto.setId(student.getStudentId());
 		studentDto.setName(student.getName());
 		studentDto.setGrade(student.getGrade());
 		studentDto.setAge(student.getAge());
