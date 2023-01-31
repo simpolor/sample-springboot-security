@@ -39,7 +39,7 @@ public class StudentController {
 
 		List<Student> students = studentService.getAll();
 
-		mav.addObject("studentList", StudentDto.of(students));
+		mav.addObject("studentList", StudentDto.StudentResponse.of(students));
 		mav.setViewName("student_list");
 
 		return mav;
@@ -51,7 +51,7 @@ public class StudentController {
 
 		Student student = studentService.get(studentId);
 
-		mav.addObject("student", StudentDto.of(student));
+		mav.addObject("student", StudentDto.StudentResponse.of(student));
 		mav.setViewName("student_detail");
 		return mav;
 	}
@@ -65,11 +65,11 @@ public class StudentController {
 
 	@PostMapping(value = "/register")
 	public ModelAndView register(ModelAndView mav,
-								 StudentDto studentDto) {
+								 StudentDto.StudentRequest request) {
 
-		log.info("studentDto: {}", studentDto.toString());
+		log.info("studentDto: {}", request.toString());
 
-		Student student = studentService.create(studentDto.toEntity());
+		Student student = studentService.create(request.toEntity());
 
 		mav.setViewName("redirect:/student/detail/"+student.getStudentId());
 		return mav;
@@ -81,7 +81,7 @@ public class StudentController {
 
 		Student student = studentService.get(studentId);
 
-		mav.addObject("student", StudentDto.of(student));
+		mav.addObject("student", StudentDto.StudentResponse.of(student));
 		mav.setViewName("student_modify");
 		return mav;
 	}
@@ -89,12 +89,11 @@ public class StudentController {
 	@PostMapping(value="/modify/{studentId}")
 	public ModelAndView modify(ModelAndView mav,
 							   @PathVariable Long studentId,
-							   StudentDto studentDto) {
+							   StudentDto.StudentRequest request) {
 
-		log.info("studentDto : {}", studentDto.toString());
+		log.info("studentDto : {}", request.toString());
 
-		studentDto.setId(studentId);
-		studentService.update(studentDto.toEntity());
+		studentService.update(request.toEntity(studentId));
 
 		mav.setViewName("redirect:/student/detail/"+studentId);
 		return mav;
