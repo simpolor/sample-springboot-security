@@ -5,7 +5,6 @@ import io.simpolor.high.repository.entity.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,51 +14,33 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public Long getTotalCount() {
-        return studentRepository.count();
-    }
-
     public List<Student> getAll() {
-
-        Iterable<Student> students = studentRepository.findAll();
-        List<Student> list = new ArrayList<>();
-        for(Student student : students){
-            list.add(student);
-        }
-
-        return list;
+        return studentRepository.findAll();
     }
 
-    public Student get(long seq) {
-
-        Optional<Student> optionalStudent = studentRepository.findById(seq);
+    public Student get(Long studentId) {
+        Optional<Student> optionalStudent = studentRepository.findById(studentId);
         if(!optionalStudent.isPresent()){
-            throw new IllegalArgumentException("seq : "+seq);
+            throw new IllegalArgumentException("studentId : "+studentId);
         }
-
         return optionalStudent.get();
     }
 
     public Student create(Student student) {
-
         return studentRepository.save(student);
     }
 
-    public Student update(Student student) {
-
-        Optional<Student> optionalStudent = studentRepository.findById(student.getSeq());
+    public void update(Student student) {
+        Optional<Student> optionalStudent = studentRepository.findById(student.getStudentId());
         if(!optionalStudent.isPresent()){
-            throw new IllegalArgumentException("seq : "+student.getSeq());
+            throw new IllegalArgumentException("studentId : "+student.getStudentId());
         }
 
-        return studentRepository.save(student);
+        studentRepository.save(student);
     }
 
-    public long delete(long seq) {
-
-        studentRepository.deleteById(seq);
-
-        return seq;
+    public void delete(Long studentId) {
+        studentRepository.deleteById(studentId);
     }
 
 }

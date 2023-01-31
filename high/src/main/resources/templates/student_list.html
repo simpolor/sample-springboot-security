@@ -73,18 +73,18 @@
     <table>
         <thead>
             <tr>
-                <th>seq</th>
+                <th>Id</th>
                 <th>name</th>
                 <th>grade</th>
                 <th>age</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="studentDto : ${studentDtos}">
-                <td th:text="${studentDto.seq}"></td>
-                <td><a th:href="@{'/student/detail/'+${studentDto.seq}}" th:text="${studentDto.name}"></a></td>
-                <td th:text="${studentDto.grade}"></td>
-                <td th:text="${studentDto.age}"></td>
+            <tr th:each="student : ${studentList}">
+                <td th:text="${student.id}"></td>
+                <td><a th:href="@{'/student/detail/'+${student.id}}" th:text="${student.name}"></a></td>
+                <td th:text="${student.grade}"></td>
+                <td th:text="${student.age}"></td>
             </tr>
         </tbody>
     </table>

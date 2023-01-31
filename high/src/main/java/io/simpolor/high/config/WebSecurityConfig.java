@@ -50,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/error", "/error/**", "/h2-console/**").permitAll()
                     .antMatchers("/user/**").permitAll()
                     .antMatchers("/student/list").permitAll()
-                    .antMatchers("/student/detail/**").hasAuthority("USER")
-                    .antMatchers("/student/register", "/student/modify/**", "/student/delete/**").hasAuthority("ADMIN")
+                    .antMatchers("/student/detail/**").hasRole("USER")
+                    .antMatchers("/student/register", "/student/modify/**", "/student/delete/**").hasAuthority("ROLE_ADMIN")
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager())
 

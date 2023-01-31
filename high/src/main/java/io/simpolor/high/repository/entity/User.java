@@ -21,7 +21,7 @@ public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long seq;
+	private Long userId;
 
 	private String email;
 	private String password;

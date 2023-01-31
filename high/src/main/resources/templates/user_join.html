@@ -39,23 +39,23 @@
                     <td><input type="text" th:name="email" th:id="email" value="test@gmail.com"/></td>
                 </tr>
                 <tr>
-                    <th>비밀번호 : </th>
+                    <th>비밀번호: </th>
                     <td><input type="password" th:name="password" th:id="password" value="1234" /></td>
                 </tr>
                 <tr>
-                    <th>비밀번호 확인 : </th>
+                    <th>비밀번호 확인: </th>
                     <td><input type="password" th:name="password_confirm" th:id="password_confirm" value="1234" /></td>
                 </tr>
                 <tr>
-                    <th>이름 : </th>
+                    <th>이름: </th>
                     <td><input type="text" th:name="name" th:id="name" value="테스터" /></td>
                 </tr>
                 <tr>
-                    <th>권한 : </th>
+                    <th>권한: </th>
                     <td>
                         <select class="select" th:name="authorities" th:id="authorities">
-                            <option th:value="USER">사용자</option>
-                            <option th:value="ADMIN">관리자</option>
+                            <option th:value="ROLE_USER">사용자</option>
+                            <option th:value="ROLE_ADMIN">관리자</option>
                         </select>
                     </td>
                 </tr>
@@ -65,7 +65,7 @@
 
     <hr />
 
-    <button onclick="fnSubmit()">가입</button>
+    <button onclick="fnSubmit()">완료</button>
     <button onclick="fnList()">목록</button>
 
 </body>
