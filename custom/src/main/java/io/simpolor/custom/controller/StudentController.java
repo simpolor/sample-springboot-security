@@ -25,7 +25,7 @@ public class StudentController {
 
 	private final StudentService studentService;
 
-	@GetMapping(value = "list")
+	@GetMapping( "/list")
 	public ModelAndView list(ModelAndView mav) {
 
 		// 시큐리티 테스트를 위한 구분
@@ -41,33 +41,32 @@ public class StudentController {
 			log.info("-- user.isAccountNonExpired() : "+user.isAccountNonExpired());
 		}
 
-		Long totalCount = studentService.getTotalCount();
-		List<StudentDto> studentDtos = StudentDto.of(studentService.getAll());
+		List<Student> students = studentService.getAll();
 
-		mav.addObject("totalCount", totalCount);
-		mav.addObject("studentDtos", studentDtos);
+		mav.addObject("studentList", StudentDto.StudentResponse.of(students));
 		mav.setViewName("student_list");
-
 		return mav;
 	}
 
-	@GetMapping(value="/detail/{seq}")
-	public ModelAndView detail(ModelAndView mav, @PathVariable long seq) {
+	@GetMapping(value="/detail/{studentId}")
+	public ModelAndView detail(ModelAndView mav,
+							   @PathVariable Long studentId) {
 
-		Student student = studentService.get(seq);
+		Student student = studentService.get(studentId);
 
-		mav.addObject("studentDto", StudentDto.of(student));
+		mav.addObject("student", StudentDto.StudentResponse.of(student));
 		mav.setViewName("student_detail");
 		return mav;
 	}
 
 	@Secured("ROLE_ADMIN")
-	@GetMapping(value="/detail2/{seq}")
-	public ModelAndView detail2(ModelAndView mav, @PathVariable long seq) {
+	@GetMapping(value="/detail2/{studentId}")
+	public ModelAndView detail2(ModelAndView mav,
+								@PathVariable Long studentId) {
 
-		Student student = studentService.get(seq);
+		Student student = studentService.get(studentId);
 
-		mav.addObject("studentDto", StudentDto.of(student));
+		mav.addObject("student", StudentDto.StudentResponse.of(student));
 		mav.setViewName("student_detail");
 		return mav;
 	}
@@ -80,42 +79,46 @@ public class StudentController {
 	}
 
 	@PostMapping(value = "/register")
-	public ModelAndView register(ModelAndView mav, StudentDto studentDto) {
+	public ModelAndView register(ModelAndView mav,
+								 StudentDto.StudentRequest request) {
 
-		log.info("studentDto : {}", studentDto.toString());
+		log.info("request : {}", request.toString());
 
-		Student student = studentService.create(studentDto.toEntity());
+		Student student = studentService.create(request.toEntity());
 
-		mav.setViewName("redirect:/student/detail/"+student.getSeq());
+		mav.setViewName("redirect:/student/detail/"+student.getStudentId());
 		return mav;
 	}
 
-	@GetMapping(value="/modify/{seq}")
-	public ModelAndView studentModifyForm(ModelAndView mav, @PathVariable long seq) {
+	@GetMapping(value="/modify/{studentId}")
+	public ModelAndView studentModifyForm(ModelAndView mav,
+										  @PathVariable Long studentId) {
 
-		Student student = studentService.get(seq);
+		Student student = studentService.get(studentId);
 
-		mav.addObject("studentDto", StudentDto.of(student));
+		mav.addObject("student", StudentDto.StudentResponse.of(student));
 		mav.setViewName("student_modify");
 		return mav;
 	}
 
-	@PostMapping(value="/modify/{seq}")
-	public ModelAndView modify(ModelAndView mav, @PathVariable long seq, StudentDto studentDto) {
+	@PostMapping(value="/modify/{studentId}")
+	public ModelAndView modify(ModelAndView mav,
+							   @PathVariable Long studentId,
+							   StudentDto.StudentRequest request) {
 
-		log.info("studentDto : {}", studentDto.toString());
+		log.info("request : {}", request.toString());
 
-		studentDto.setSeq(seq);
-		studentService.update(studentDto.toEntity());
+		studentService.update(request.toEntity(studentId));
 
-		mav.setViewName("redirect:/student/detail/"+seq);
+		mav.setViewName("redirect:/student/detail/"+studentId);
 		return mav;
 	}
 
-	@PostMapping(value="/delete/{seq}")
-	public ModelAndView delete(ModelAndView mav, @PathVariable long seq) {
+	@PostMapping(value="/delete/{studentId}")
+	public ModelAndView delete(ModelAndView mav,
+							   @PathVariable Long studentId) {
 
-		studentService.delete(seq);
+		studentService.delete(studentId);
 
 		mav.setViewName("redirect:/student/list");
 		return mav;

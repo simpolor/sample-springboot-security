@@ -1,6 +1,5 @@
 package io.simpolor.custom.repository.entity;
 
-import io.simpolor.custom.repository.converter.StringListConverter;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +20,7 @@ public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long seq;
+	private Long userId;
 
 	private String email;
 	private String password;
@@ -30,7 +29,7 @@ public class User implements UserDetails {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(
 			name="user_role",
-			joinColumns = @JoinColumn(name= "seq", referencedColumnName = "seq"))
+			joinColumns = @JoinColumn(name= "userId", referencedColumnName = "userId"))
 	private List<String> authorities;
 
 

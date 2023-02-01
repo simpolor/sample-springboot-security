@@ -1,29 +1,29 @@
 CREATE TABLE `user` (
-    `seq` INT(11) NOT NULL AUTO_INCREMENT COMMENT '번호',
+    `user_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '유저 아이디',
     `email` VARCHAR(50) NOT NULL COMMENT '이메일',
     `password` VARCHAR(255) NOT NULL COMMENT '비밀번호',
     `name` VARCHAR(50) NOT NULL COMMENT '이름',
-    PRIMARY KEY (`seq`)
+    PRIMARY KEY (`user_id`)
 );
 
 CREATE TABLE `user_role` (
-    `seq` INT(11) NOT NULL COMMENT '번호',
-    `authorities` VARCHAR(50) NOT NULL COMMENT '권한',
-    PRIMARY KEY (`seq`)
+    `user_id` INT(11) NOT NULL COMMENT '유저 아이디',
+    `authorities` VARCHAR(50) NOT NULL COMMENT '권한 목록',
+    PRIMARY KEY (`user_id`)
 );
 
 CREATE TABLE `access` (
-    `access_seq` INT(11) NOT NULL AUTO_INCREMENT COMMENT '접근번호',
-    `access_url` VARCHAR(50) NOT NULL COMMENT '접근 URL',
-    `access_roles` VARCHAR(50) NOT NULL COMMENT '접근 권한코드',
-    PRIMARY KEY (`access_seq`)
+    `access_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '접근 아이디',
+    `target_url` VARCHAR(50) NOT NULL COMMENT '대상 URL',
+    `roles` VARCHAR(50) NOT NULL COMMENT '대상 권한 목록',
+    PRIMARY KEY (`access_id`)
 );
 
 CREATE TABLE `role` (
-    `role_seq` INT(11) NOT NULL AUTO_INCREMENT COMMENT '권한번호',
-    `role_code` VARCHAR(50) NOT NULL COMMENT '권한코드',
-    `role_name` INT(11) NULL DEFAULT NULL COMMENT '권한명',
-    PRIMARY KEY (`role_seq`)
+    `role_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '권한 번호',
+    `code` VARCHAR(50) NOT NULL COMMENT '코드',
+    `name` VARCHAR(50) NULL DEFAULT NULL COMMENT '권한명',
+    PRIMARY KEY (`role_id`)
 );
 
 CREATE TABLE `token` (
@@ -35,10 +35,9 @@ CREATE TABLE `token` (
 );
 
 CREATE TABLE `student` (
-    `seq` INT(11) NOT NULL AUTO_INCREMENT COMMENT '번호',
+    `student_id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '학생 번호',
     `name` VARCHAR(50) NOT NULL COMMENT '이름',
     `grade` INT(11) NULL DEFAULT NULL COMMENT '학년',
     `age` INT(11) NULL DEFAULT NULL COMMENT '나이',
-    `hobby` VARCHAR(50) NULL DEFAULT NULL COMMENT '취미',
-    PRIMARY KEY (`seq`)
+    PRIMARY KEY (`student_id`)
 );

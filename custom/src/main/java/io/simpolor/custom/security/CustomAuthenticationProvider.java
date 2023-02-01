@@ -20,8 +20,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider{
 
-	private String rolePrefix = "ROLE_";
-
 	private final PasswordEncoding passwordEncoding;
 	private final UserService userService;
 

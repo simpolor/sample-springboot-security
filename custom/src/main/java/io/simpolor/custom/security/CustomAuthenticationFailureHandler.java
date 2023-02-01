@@ -27,12 +27,12 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
 		log.info("CustomAuthenticationFailureHandler.onAuthenticationFailure");
 		 
-		String memberId = request.getParameter("member_id");
-		String memberPw = request.getParameter("member_pw");
-		String failUrl = "/member/login?error=true";
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String failUrl = "/user/login?error=true";
 		
-		log.info("memberId : {}", memberId);
-		log.info("memberPw : {}", memberPw);
+		log.info("email : {}", email);
+		log.info("password : {}", password);
 		log.info("failUrl : {}", failUrl);
 		log.info("exception : {}", exception.getMessage());
 		

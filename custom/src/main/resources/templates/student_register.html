@@ -9,6 +9,7 @@
             var form = document.getElementById("studentForm");
             form.submit();
         }
+
         function fnList() {
             location.href = "/student/list";
         }
@@ -39,15 +40,15 @@
         <table>
             <tbody>
                 <tr>
-                    <th>Name : </th>
+                    <th>Name: </th>
                     <td><input type="text" th:name="name" th:id="name" /></td>
                 </tr>
                 <tr>
-                    <th>Grade : </th>
+                    <th>Grade: </th>
                     <td><input type="text" th:name="grade" th:id="grade" /></td>
                 </tr>
                 <tr>
-                    <th>Age : </th>
+                    <th>Age: </th>
                     <td><input type="text" th:name="age" th:id="age" /></td>
                 </tr>
             </tbody>
@@ -56,7 +57,7 @@
 
     <hr />
 
-    <button onclick="fnSubmit()">등록</button>
+    <button onclick="fnSubmit()">완료</button>
     <button onclick="fnList()">목록</button>
 
 </body>

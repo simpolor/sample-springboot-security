@@ -11,6 +11,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -33,17 +34,17 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 		Map<RequestMatcher, List<ConfigAttribute>> resources = new HashMap<>();
 
 		// URL 및 권한 정보를 DB에서 호출
-		List<Access> accessList = accessService.getAccessList();
+		List<Access> accesses = accessService.getAll();
 
-		if(accessList != null && !accessList.isEmpty()) {
+		if(!CollectionUtils.isEmpty(accesses)) {
 			List<ConfigAttribute> configList;
 
 			// URL 및 권한에 따른 매핑 정보를 저장
 			// (하나의 URL에 따른 여러 권한이 있을 경우에 대한 처리 과정)
-			for(Access access : accessList) {
-				AntPathRequestMatcher matcher = new AntPathRequestMatcher(access.getAccessUrl());
+			for(Access access : accesses) {
+				AntPathRequestMatcher matcher = new AntPathRequestMatcher(access.getTargetUrl());
 				configList = new LinkedList<>();
-				for(String role : access.getAccessRoles()){
+				for(String role : access.getRoles()){
 					configList.add(new SecurityConfig(role));
 				}
 				resources.put(matcher, configList);

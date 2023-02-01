@@ -13,7 +13,7 @@ public class AccessService {
 
 	private final AccessRepository accessRepository;
 
-	public List<Access> getAccessList() {
+	public List<Access> getAll() {
 		return accessRepository.findAll();
 	}
 

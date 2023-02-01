@@ -1,16 +1,18 @@
 package io.simpolor.custom.controller;
 
 import io.simpolor.custom.model.UserDto;
+import io.simpolor.custom.repository.entity.Role;
 import io.simpolor.custom.repository.entity.User;
+import io.simpolor.custom.service.RoleService;
 import io.simpolor.custom.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -19,34 +21,42 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
 
 	private final UserService userService;
+	private final RoleService roleService;
 
-	@RequestMapping(value="/join", method=RequestMethod.GET)
+	@GetMapping("/join")
 	public ModelAndView joinForm(ModelAndView mav) {
 
+		List<Role> roles = roleService.getAll();
+
+		mav.addObject("roles", roles);
 		mav.setViewName("user_join");
 		return mav;
 	}
 
-	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public ModelAndView join(ModelAndView mav, UserDto userDto) {
+	@PostMapping("/join")
+	public ModelAndView join(ModelAndView mav,
+							 UserDto.UserRequest request) {
 
-		userService.insert(userDto.toEntity());
+		userService.insert(request.toEntity());
 
 		mav.setViewName("redirect:/student/list");
 		return mav;
 	}
 
-	@RequestMapping(value="/login", method=RequestMethod.GET)
+	@GetMapping("/login")
 	public ModelAndView loginForm(ModelAndView mav) {
+
+
 
 		mav.setViewName("user_login");
 		return mav;
 	}
 
-	@GetMapping(value="/detail/{seq}")
-	public ModelAndView detail(ModelAndView mav, @PathVariable long seq) {
+	@GetMapping("/detail/{userId}")
+	public ModelAndView detail(ModelAndView mav,
+							   @PathVariable Long userId) {
 
-		User user = userService.get(seq);
+		User user = userService.get(userId);
 
 		// Collection<? extends GrantedAuthority> grantedAuthorityList = member.getAuthorities();
 		// Iterator<? extends GrantedAuthority> it = grantedAuthorityList.iterator();
@@ -58,7 +68,7 @@ public class UserController {
 		// assertThat(authorities, hasItem(new SimpleGrantedAuthority(authority.getAuthority())));
 		// }
 
-		mav.addObject("userDto", UserDto.of(user));
+		mav.addObject("user", UserDto.UserResponse.of(user));
 		mav.setViewName("user_detail");
 		return mav;
 	}

@@ -17,7 +17,7 @@ public class Student {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long seq;
+	private Long studentId;
 
 	/* @Id
 	@GeneratedValue(generator = "UUID")
@@ -28,6 +28,6 @@ public class Student {
 	private long id; */
 
 	private String name;
-	private int grade;
-	private int age;
+	private Integer grade;
+	private Integer age;
 }

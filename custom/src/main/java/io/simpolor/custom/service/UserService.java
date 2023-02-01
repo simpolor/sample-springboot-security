@@ -25,17 +25,17 @@ public class UserService implements UserDetailsService {
 
 		Optional<User> optionalUser = userRepository.findByEmail(email);
 		if(!optionalUser.isPresent()){
-			throw new UsernameNotFoundException("Exist Not User");
+			throw new UsernameNotFoundException("Exist Not User: "+email);
 		}
 
 		return optionalUser.get();
 	}
 
-	public User get(long seq) {
+	public User get(Long userId) {
 
-		Optional<User> optionalUser = userRepository.findById(seq);
+		Optional<User> optionalUser = userRepository.findById(userId);
 		if(!optionalUser.isPresent()){
-			throw new UsernameNotFoundException("Exist Not User");
+			throw new UsernameNotFoundException("Exist Not User: "+userId);
 		}
 
 		return optionalUser.get();
@@ -45,20 +45,5 @@ public class UserService implements UserDetailsService {
 
 		user.setPassword(passwordEncoding.encode(user.getPassword()));
 		userRepository.save(user);
-	}
-
-	public void update(User user) {
-
-		Optional<User> optionalUser = userRepository.findById(user.getSeq());
-		if(!optionalUser.isPresent()){
-			throw new UsernameNotFoundException("Exist Not User");
-		}
-
-		userRepository.save(user);
-	}
-
-	public void delete(long seq) {
-
-		userRepository.deleteById(seq);
 	}
 }

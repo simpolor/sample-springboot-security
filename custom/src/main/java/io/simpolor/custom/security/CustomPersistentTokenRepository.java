@@ -1,5 +1,6 @@
 package io.simpolor.custom.security;
 
+import io.simpolor.custom.repository.entity.Token;
 import io.simpolor.custom.service.TokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.web.authentication.rememberme.PersistentRememberMeToken;
@@ -19,27 +20,47 @@ public class CustomPersistentTokenRepository implements PersistentTokenRepositor
 	private final TokenService tokenService;
 	
 	@Override
-	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
-		return tokenService.getTokenForSeries(seriesId);
+	public PersistentRememberMeToken getTokenForSeries(String series) {
+		Token token = tokenService.get(series);
+		if(Objects.isNull(token)){
+			return null;
+		}
+
+		return new PersistentRememberMeToken(token.getUsername(), token.getSeries(), token.getToken(), token.getLastUsed());
 	}
 	
 	@Override
-	public void createNewToken(PersistentRememberMeToken token) {
-		tokenService.createNewToken(token.getUsername(), token.getSeries(), token.getTokenValue(), token.getDate());
+	public void createNewToken(PersistentRememberMeToken persistentRememberMeToken) {
+
+		Token token = new Token();
+		token.setSeries(persistentRememberMeToken.getSeries());
+		token.setUsername(persistentRememberMeToken.getUsername());
+		token.setToken(persistentRememberMeToken.getTokenValue());
+		token.setLastUsed(persistentRememberMeToken.getDate());
+
+		tokenService.create(token);
 	}
 
 	@Override
 	public void updateToken(String series, String tokenValue, Date lastUsed) {
+		Token token = tokenService.get(series);
+		if(Objects.isNull(token)){
+			return;
+		}
+		token.setToken(tokenValue);
+		token.setLastUsed(lastUsed);
 
-		tokenService.updateToken(series, tokenValue, lastUsed);
+		tokenService.update(token);
 	}
 
 	@Override
 	public void removeUserTokens(String username) {
-
-		if(Objects.nonNull(tokenService.selectToken(username))){
-			tokenService.removeUserTokens(username);
+		Token token = tokenService.getByUsername(username);
+		if(Objects.isNull(token)){
+			return;
 		}
+
+		tokenService.delete(token.getSeries());
 	}
 
 }
