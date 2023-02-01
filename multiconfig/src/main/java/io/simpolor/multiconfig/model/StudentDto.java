@@ -11,37 +11,53 @@ import java.util.stream.Collectors;
 @Getter
 public class StudentDto {
 
-	private long seq;
-	private String name;
-	private int grade;
-	private int age;
+	@Getter
+	@Setter
+	public static class StudentRequest {
 
-	public Student toEntity(){
+		private String name;
+		private Integer grade;
+		private Integer age;
 
-		Student student = new Student();
-		student.setSeq(this.seq);
-		student.setName(this.name);
-		student.setGrade(this.grade);
-		student.setAge(this.age);
+		public Student toEntity(){
+			return this.toEntity(null);
+		}
+		public Student toEntity(Long studentId){
+			Student student = new Student();
+			student.setStudentId(studentId);
+			student.setName(this.name);
+			student.setGrade(this.grade);
+			student.setAge(this.age);
 
-		return student;
+			return student;
+		}
 	}
 
-	public static StudentDto of(Student student){
+	@Getter
+	@Setter
+	public static class StudentResponse {
 
-		StudentDto studentDto = new StudentDto();
-		studentDto.setSeq(student.getSeq());
-		studentDto.setName(student.getName());
-		studentDto.setGrade(student.getGrade());
-		studentDto.setAge(student.getAge());
+		private Long id;
+		private String name;
+		private Integer grade;
+		private Integer age;
 
-		return studentDto;
-	}
+		public static StudentResponse of(Student student){
 
-	public static List<StudentDto> of(List<Student> students){
+			StudentResponse response = new StudentResponse();
+			response.setId(student.getStudentId());
+			response.setName(student.getName());
+			response.setGrade(student.getGrade());
+			response.setAge(student.getAge());
 
-		return students.stream()
-				.map(StudentDto::of)
-				.collect(Collectors.toList());
+			return response;
+		}
+
+		public static List<StudentResponse> of(List<Student> students){
+
+			return students.stream()
+					.map(StudentResponse::of)
+					.collect(Collectors.toList());
+		}
 	}
 }

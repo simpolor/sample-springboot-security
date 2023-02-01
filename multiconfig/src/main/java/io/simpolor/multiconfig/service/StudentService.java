@@ -15,10 +15,6 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public Long getTotalCount() {
-        return studentRepository.count();
-    }
-
     public List<Student> getAll() {
 
         Iterable<Student> students = studentRepository.findAll();
@@ -30,11 +26,11 @@ public class StudentService {
         return list;
     }
 
-    public Student get(long seq) {
+    public Student get(Long studentId) {
 
-        Optional<Student> optionalStudent = studentRepository.findById(seq);
+        Optional<Student> optionalStudent = studentRepository.findById(studentId);
         if(!optionalStudent.isPresent()){
-            throw new IllegalArgumentException("seq : "+seq);
+            throw new IllegalArgumentException("studentId : "+studentId);
         }
 
         return optionalStudent.get();
@@ -45,21 +41,19 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student update(Student student) {
+    public void update(Student student) {
 
-        Optional<Student> optionalStudent = studentRepository.findById(student.getSeq());
+        Optional<Student> optionalStudent = studentRepository.findById(student.getStudentId());
         if(!optionalStudent.isPresent()){
-            throw new IllegalArgumentException("seq : "+student.getSeq());
+            throw new IllegalArgumentException("studentId : "+student.getStudentId());
         }
 
-        return studentRepository.save(student);
+        studentRepository.save(student);
     }
 
-    public long delete(long seq) {
+    public void delete(Long studentId) {
 
-        studentRepository.deleteById(seq);
-
-        return seq;
+        studentRepository.deleteById(studentId);
     }
 
 }
