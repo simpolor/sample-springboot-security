@@ -28,6 +28,6 @@ public class Student {
 	private long studentId; */
 
 	private String name;
-	private int grade;
-	private int age;
+	private Integer grade;
+	private Integer age;
 }
